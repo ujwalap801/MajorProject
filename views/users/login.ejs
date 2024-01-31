@@ -15,7 +15,7 @@
              
 
 
-                 
+<!--                  
                  <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                      <input name="password" 
@@ -24,9 +24,45 @@
                     class="form-control"
                     required
                      />
-                 </div>
+                 </div> -->
+
+                 <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <input name="password" id="password" type="password" class="form-control" required />
+                        <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <br>
 
                  <button class="btn btn-success">Login</button>
         </form>
     </div>
 </div>
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword = document.querySelector('#togglePassword');
+        const passwordField = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function() {
+            // Toggle the password field's type attribute between 'password' and 'text'
+            passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
+
+            // Toggle the eye icon between open and closed eye
+            const eyeIcon = togglePassword.querySelector('i');
+            if (passwordField.type === 'text') {
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        });
+    });
+</script>
