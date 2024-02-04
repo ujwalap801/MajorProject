@@ -19,12 +19,14 @@ const User = require("./models/user.js");
 const port=3000;
 
 
+
 const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const { error } = require('console');
 
-// const MONGO_URL ='mongodb://127.0.0.1:27017/wanderweb';
-const dbUrl = process.env.ATLASTDB_URL;
+//const MONGO_URL ='mongodb://127.0.0.1:27017/wanderweb';
+ const dbUrl = process.env.ATLASTDB_URL;
 main()
 .then(()=>
 {
@@ -49,31 +51,30 @@ app.use(express.static(path.join(__dirname,"/public")));
 
 
 
-const store=MongoStore.create(
-  {
-    mongoUrl:dbUrl,
-    crypto:{
-      secret:process.env.SECRET
-    },
-    touchAfter:24 *3600,
-  }
-);
 
+const store = MongoStore.create({
+  mongoUrl :dbUrl,
+  crypto:{
+    secret :process.env.SECRET,
+  },
+  touchAfter :24 * 3600,
+
+})
 
 store.on("error",()=>
 {
-  console.log("ERROR in MONGO SESSION STORE",err);
-});
+  console.log("ERRORIN MONGO SESSION STORE",err);
+})
 
 const sessionOptions = {
   store,
-  secret:process.env.SECRET,
-  resave : false,
-  saveUninitialized:true,
-  cookie:{
-    expires : Date.now() +  7 * 24 * 60 * 60 * 1000,
-    maxAge :7 * 24 * 60 * 60 * 1000,
-    httpOnly : true
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Set expiration time using Date object
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true
   },
 };
 
@@ -81,6 +82,7 @@ const sessionOptions = {
 // {
 //     res.send("hi");
 // })
+
 
 
 
