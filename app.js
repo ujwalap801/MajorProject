@@ -10,8 +10,9 @@ const path=require("path");
 const methodOverride= require("method-override");
 const ejsMate= require("ejs-mate");
 const ExpressError=require("./utils/ExpressError.js");
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
+const session = require("express-session");
+// const MongoStore = require("connect-mongo");
+const MongoDBStore = require('connect-mongodb-session')(session);
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -50,25 +51,21 @@ app.engine("ejs",ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
 
 
-
-
-const store=MongoStore.create(
-  {
-    mongoUrl:dbUrl,
-    crypto:{
-      secret:process.env.SECRET
-    },
-    touchAfter:24 *3600,
-  }
-);
+const store = new MongoDBStore({
+  mongoUrl:dbUrl,
+  crypto: {
+    secret: process.env.SECRET
+  },
+  touchAfter:24*3600,
+});
 
 store.on("error", ()=> {
   console.log("Err in mongo store", err);
 })
 
 const sessionOptions = {
- 
-  secret: "mysupercode",
+  store,
+  secret:"mysupercode",
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -84,14 +81,7 @@ const sessionOptions = {
 // })
 
 
-
-
-
- app.use(session(sessionOptions));
-
-
-
-
+app.use(session(sessionOptions));
 app.use(flash());
 
 app.use(passport.initialize());
