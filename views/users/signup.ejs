@@ -1,4 +1,46 @@
-<% layout("/layouts/boilerplate") %>
+<% layout("/layouts/boilerplate1") %>
+
+
+<style>
+    /* Footer */
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #ebebeb;
+        height: 8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .f-info-links a {
+        text-decoration: none;
+        color: #222222;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .f-info-links a:hover {
+        text-decoration: underline;
+        opacity: 0.75;
+    }
+
+    .f-info-links,
+    .f-info-socials,
+    .f-info-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+    }
+
+    .f-info-socials i {
+        font-size: 1.2rem;
+        margin-right: 1rem;
+    }
+</style>
+
 
 <div class="row mt-3">
     <h1 class="col-6 offset-3">SignUp on Wanderweb</h1>
@@ -78,6 +120,25 @@
         });
     });
 </script> -->
+
+
+
+<footer class="footer">
+    <div class="f-info">
+        <div class="f-info-socials">
+            <i class="fa-brands fa-square-facebook"></i>
+            <i class="fa-brands fa-square-instagram"></i>
+            <i class="fa-brands fa-linkedin"></i>
+        </div>
+
+        <div  class="f-info-brand"> &copy;WanderWeb Private Limited</div>
+        <div class="f-info-links">
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+        </div>
+    </div>
+</footer>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const togglePassword = document.querySelector('#togglePassword');

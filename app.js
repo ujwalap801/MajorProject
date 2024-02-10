@@ -26,6 +26,7 @@ const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const { error } = require('console');
 
+
 //const MONGO_URL ='mongodb://127.0.0.1:27017/wanderweb';
  const dbUrl = process.env.ATLASTDB_URL;
 main()
@@ -34,9 +35,6 @@ main()
     console.log("connecting to DB");
 })
 .catch(err => console.log(err));
-
-
-
 
 async function main() {
   await mongoose.connect(dbUrl);
@@ -60,7 +58,7 @@ const store = new MongoDBStore({
 });
 
 store.on("error", ()=> {
-  console.log("Err in mongo store", err);
+  console.log("Err in mongo store", error);
 })
 
 const sessionOptions = {
