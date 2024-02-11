@@ -52,7 +52,7 @@ app.use(express.static(path.join(__dirname,"/public")));
 const store = new MongoDBStore({
   mongoUrl:dbUrl,
   crypto: {
-    secret: process.env.SECRET
+    secret:process.env.SECRET
   },
   touchAfter:24*3600,
 });
@@ -63,7 +63,7 @@ store.on("error", ()=> {
 
 const sessionOptions = {
   store,
-  secret:"mysupercode",
+  secret:process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
