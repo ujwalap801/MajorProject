@@ -28,7 +28,7 @@ const { error } = require('console');
 
 
 
- const dbUrl = process.env.ATLASTDB_URL;
+const dbUrl = process.env.ATLASTDB_URL
 main()
 .then(()=>
 {
