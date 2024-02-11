@@ -57,8 +57,8 @@ const store = new MongoDBStore({
   touchAfter:24*3600,
 });
 
-store.on("error", ()=> {
-  console.log("Err in mongo store", error);
+store.on("error", (err)=> {
+  console.log("Err in mongo store", err);
 })
 
 const sessionOptions = {
