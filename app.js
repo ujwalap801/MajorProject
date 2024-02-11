@@ -26,9 +26,8 @@ const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const { error } = require('console');
 
-
-
-const dbUrl = process.env.ATLASTDB_URL
+//const MONGO_URL ='mongodb://127.0.0.1:27017/wanderweb';
+const dbUrl = process.env.ATLASDB_URL
 main()
 .then(()=>
 {
@@ -49,16 +48,30 @@ app.engine("ejs",ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
 
 
+// const store = new MongoDBStore({
+//   mongoUrl:dbUrl,
+//   crypto: {
+//     secret:"mysupercode"
+//   },
+//   touchAfter:24*3600,
+// });
+
+// store.on("error", (err)=> {
+//   console.log("Err in mongo store", err);
+// })
+
+
 const store = new MongoDBStore({
   mongoUrl:dbUrl,
-  crypto: {
-    secret:process.env.SECRET
+  crypto:{
+    secret:process.env.SECRET,
   },
-  touchAfter:24*3600,
+  touchAfter:24 *3600,
 });
 
-store.on("error", (err)=> {
-  console.log("Err in mongo store", err);
+store.on("error",(err)=>
+{
+  console.log("ERROR in mongo store",err);
 })
 
 const sessionOptions = {
